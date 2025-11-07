@@ -17,7 +17,6 @@
       font-family: 'Mali', cursive, sans-serif;
     }
 
-    /* Nút Bật/Tắt nhạc */
     #toggleMusicBtn {
       position: fixed;
       top: 20px;
@@ -41,7 +40,6 @@
       background: rgba(255, 255, 255, 0.4);
     }
 
-    /* Nền sao */
     .star {
       position: absolute;
       width: 2px;
@@ -57,80 +55,86 @@
       50% { opacity: 1; }
     }
 
-    /* Bong bóng chữ bay lên */
+    /* === SỬA KEYFRAME (1) - Thêm lắc lư (sway) === */
     .bubble {
       position: absolute;
       font-size: 20px;
       font-weight: bold;
       color: #ffccff;
-      animation: float 10s linear infinite;
+      animation: floatPath 10s linear infinite; /* Đổi tên animation */
       opacity: 0.95;
       white-space: nowrap;
       text-shadow: 0 0 8px #ff99ff;
     }
 
-    @keyframes float {
-      0% { transform: translateY(0) scale(1); opacity: 0.2; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+    /* Thêm các biến --x-sway-1 và --x-sway-2 sẽ được JS cung cấp */
+    @keyframes floatPath {
+      0%   { transform: translateY(0)    translateX(0px) scale(1); opacity: 0.2; }
+      25%  { transform: translateY(-25vh) translateX(var(--x-sway-1, 20px)) scale(1.1); }
+      50%  { transform: translateY(-50vh) translateX(var(--x-sway-2, -20px)) scale(1.2); opacity: 1; }
+      75%  { transform: translateY(-80vh) translateX(var(--x-sway-1, 20px)) scale(1.2); }
+      100% { transform: translateY(-120vh) translateX(0px) scale(1.3); opacity: 0; }
     }
 
-    /* Trái tim bay */
+    /* === SỬA KEYFRAME (2) - Thêm lắc lư (sway) === */
     .heart {
       position: absolute;
       color: #ff66cc;
       font-size: 16px;
-      animation: floatHeart 6s linear infinite;
+      animation: floatHeartPath 6s linear infinite; /* Đổi tên */
       opacity: 0.7;
     }
 
-    @keyframes floatHeart {
-      0% { bottom: -10px; opacity: 0; transform: translateX(0) scale(1); }
-      50% { opacity: 1; transform: translateX(-30px) scale(1.3); }
-      100% { bottom: 100%; opacity: 0; transform: translateX(30px) scale(0.8); }
+    @keyframes floatHeartPath {
+      0%   { transform: translateY(0)    translateX(0px) scale(1); opacity: 0; }
+      25%  { transform: translateY(-25vh) translateX(var(--x-sway-1, -30px)) scale(1.1); }
+      50%  { opacity: 1; transform: translateY(-50vh) translateX(var(--x-sway-2, 30px)) scale(1.3); }
+      75%  { transform: translateY(-75vh) translateX(var(--x-sway-1, -30px)) scale(1.1); }
+      100% { transform: translateY(-100vh) translateX(0px) scale(0.8); opacity: 0; }
     }
 
-    /* Chữ rơi từ trên xuống */
+    /* === SỬA KEYFRAME (3) - Thêm lắc lư (sway) === */
     .falling {
       position: absolute;
       font-size: 24px;
       font-weight: bold;
       color: #ffd6ff;
-      animation: fallZoom 4s ease-in-out forwards;
       white-space: nowrap;
       text-shadow: 0 0 10px #ff66cc;
       opacity: 0.9;
+      top: 0; 
+      animation: fallZoomPath 4s ease-in-out forwards; /* Đổi tên */
     }
 
-    @keyframes fallZoom {
-      0% { top: -50px; opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(2); }
-      100% { top: 100vh; opacity: 0; transform: scale(0.8); }
+    @keyframes fallZoomPath {
+      0%   { transform: translateY(-50px) translateX(var(--x-sway-start, 0px)) scale(0.5); opacity: 0; }
+      50%  { opacity: 1; transform: translateY(40vh) translateX(var(--x-sway-mid, 0px)) scale(2); }
+      100% { transform: translateY(100vh) translateX(var(--x-sway-end, 0px)) scale(0.8); opacity: 0; }
     }
     
-    /* CSS CHO ẢNH BAY LÊN */
+    /* === SỬA KEYFRAME (4) - Thêm lắc lư (sway) === */
     .floating-image {
       position: absolute;
       width: 60px;
       height: auto;
-      animation: floatImage 12s linear infinite;
+      animation: floatImagePath 12s linear infinite; /* Đổi tên */
       opacity: 0.8;
       z-index: -1;
     }
 
-    @keyframes floatImage {
-      0% { transform: translateY(0) rotate(-10deg) scale(0.8); opacity: 0; bottom: -100px; }
-      25% { opacity: 0.7; }
-      50% { transform: translateY(-50vh) rotate(10deg) scale(1.2); opacity: 1; }
-      75% { opacity: 0.7; }
-      100% { transform: translateY(-120vh) rotate(-10deg) scale(0.8); opacity: 0; bottom: 120vh; }
+    @keyframes floatImagePath {
+      0%   { transform: translateY(0)    translateX(0px) rotate(-10deg) scale(0.8); opacity: 0; }
+      25%  { transform: translateY(-25vh) translateX(var(--x-sway-1, 30px)) rotate(0deg) scale(1); }
+      50%  { transform: translateY(-50vh) translateX(var(--x-sway-2, -30px)) rotate(10deg) scale(1.2); opacity: 1; }
+      75%  { transform: translateY(-80vh) translateX(var(--x-sway-1, 30px)) rotate(0deg) scale(1); }
+      100% { transform: translateY(-120vh) translateX(0px) rotate(-10deg) scale(0.8); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
   <audio id="myAudio" loop>
-    <source src="image/Beneath the Rain.mp3" type="audio/mpeg">
+    <source src="image/TEN_FILE_NHAC_CUA_BAN.mp3" type="audio/mpeg">
     Trình duyệt của bạn không hỗ trợ phát audio.
   </audio>
   
@@ -152,50 +156,106 @@
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.left = Math.random() * 90 + "vw";
+      heart.style.bottom = (Math.random() * 20 - 10) + "px"; 
       heart.style.fontSize = (Math.random() * 20 + 10) + "px";
       heart.textContent = "💖";
+      
+      // === SỬA JS (1) - Thêm tốc độ và quỹ đạo ngẫu nhiên ===
+      const duration = Math.random() * 4 + 5; // Tốc độ ngẫu nhiên 5-9s
+      const sway1 = Math.random() * 60 - 30; // -30px đến +30px
+      const sway2 = Math.random() * 60 - 30; // -30px đến +30px
+      
+      heart.style.animationDuration = duration + 's';
+      heart.style.setProperty('--x-sway-1', sway1 + 'px');
+      heart.style.setProperty('--x-sway-2', sway2 + 'px');
+      
       document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
+      setTimeout(() => heart.remove(), duration * 1000); // Xóa theo thời gian ngẫu nhiên
     }
     setInterval(createHeart, 500);
   </script>
 
   <script>
+    // === SỬA JS (2) - Thêm nhiều tin nhắn hơn ===
     const messages = [
-      "🌸 Em yêu anh!", "💌 Anh là người đặc biệt nhất!", "💖 Cảm ơn anh vì tất cả",
-      "🌠 Mỗi ngày bên anh là kỳ diệu", "💕 Tình yêu em dành cho anh là mãi mãi",
-      "🕊️ Chỉ cần anh cười, cả thế giới rạng rỡ", "🌈 Anh là bầu trời anh mơ ước",
-      "💫 Ánh mắt anh khiến em tan chảy", "🧡 Anh là cả vũ trụ của em",
-      "✨ Bên Anh là điều tuyệt vời nhất"
+      "🌸 Em yêu anh!", "💌 Anh là người đặc biệt nhất!", "🌟 Chúc chồng iu 19-11 vui vẻ!", "💘 Em yêu anh",
+      "🌌 Trần Thanh Bình!", "🌷 Mãi bên cạnh nhau nhé!", "I love you",
+      "💫 Yêu anh là điều đúng đắn nhất",
+      "💞 Cùng nắm tay nhau nha", "💒 Mãi mãi bên nhau nhé anh"
     ];
+    
+    let lastBubbleIndex = -1; // Biến để chống lặp
+
     function createBubble() {
+      // Logic chống lặp
+      let newIndex = Math.floor(Math.random() * messages.length);
+      while (messages.length > 1 && newIndex === lastBubbleIndex) {
+        newIndex = Math.floor(Math.random() * messages.length);
+      }
+      lastBubbleIndex = newIndex;
+
       const bubble = document.createElement("div");
       bubble.className = "bubble";
-      bubble.textContent = messages[Math.floor(Math.random() * messages.length)];
+      bubble.textContent = messages[newIndex]; // Dùng tin nhắn mới
       bubble.style.left = Math.random() * 90 + "vw";
       bubble.style.bottom = "0px";
       bubble.style.fontSize = (Math.random() * 16 + 18) + "px";
+      
+      // === SỬA JS (3) - Thêm tốc độ và quỹ đạo ngẫu nhiên ===
+      const duration = Math.random() * 5 + 8; // Tốc độ ngẫu nhiên 8-13s
+      const sway1 = Math.random() * 50 - 25; // -25px đến +25px
+      const sway2 = Math.random() * 50 - 25; // -25px đến +25px
+      
+      bubble.style.animationDuration = duration + 's';
+      bubble.style.setProperty('--x-sway-1', sway1 + 'px');
+      bubble.style.setProperty('--x-sway-2', sway2 + 'px');
+      
       document.body.appendChild(bubble);
-      setTimeout(() => bubble.remove(), 10000);
+      setTimeout(() => bubble.remove(), duration * 1000); // Xóa theo thời gian ngẫu nhiên
     }
     setInterval(createBubble, 700);
   </script>
 
   <script>
+    // === SỬA JS (4) - Thêm nhiều tin nhắn hơn ===
     const fallMessages = [
-      "🌟 Anh là định mệnh của em!", "💘 Em chỉ muốn bên anh mãi mãi!",
-      "🌌 Không ai thay thế được anh!", "🌷 Anh là giấc mơ em không muốn tỉnh dậy!",
-      "🔥 Trái tim em gọi tên anh!"
+      "🌟 Chúc chồng iu 19-11 vui vẻ!", "💘 Em yêu anh",
+      "🌌 Trần Thanh Bình!", "🌷 Mãi bên cạnh nhau nhé!", "I love you",
+      "💫 Yêu anh là điều đúng đắn nhất",
+      "💞 Cùng nắm tay nhau nha", "💒 Mãi mãi bên nhau nhé anh"
     ];
+    
+    let lastFallIndex = -1; // Biến chống lặp
+
     function createFallingMessage() {
+      // Logic chống lặp
+      let newIndex = Math.floor(Math.random() * fallMessages.length);
+      while (fallMessages.length > 1 && newIndex === lastFallIndex) {
+        newIndex = Math.floor(Math.random() * fallMessages.length);
+      }
+      lastFallIndex = newIndex;
+
       const fall = document.createElement("div");
       fall.className = "falling";
-      fall.textContent = fallMessages[Math.floor(Math.random() * fallMessages.length)];
+      fall.textContent = fallMessages[newIndex];
       fall.style.left = Math.random() * 80 + "vw";
+      
+      // === SỬA JS (5) - Thêm quỹ đạo ngẫu nhiên ===
+      const duration = Math.random() * 2 + 4; // Tốc độ ngẫu nhiên 4-6s
+      const swayStart = Math.random() * 40 - 20; // -20px đến +20px
+      const swayMid = Math.random() * 100 - 50;  // -50px đến +50px
+      const swayEnd = Math.random() * 40 - 20;   // -20px đến +20px
+      
+      fall.style.animationDuration = duration + 's';
+      fall.style.setProperty('--x-sway-start', swayStart + 'px');
+      fall.style.setProperty('--x-sway-mid', swayMid + 'px');
+      fall.style.setProperty('--x-sway-end', swayEnd + 'px');
+
       document.body.appendChild(fall);
-      setTimeout(() => fall.remove(), 4000);
+      setTimeout(() => fall.remove(), duration * 1000); // Xóa theo thời gian ngẫu nhiên
     }
+
     setInterval(() => {
       if (Math.random() < 0.7) createFallingMessage();
     }, 5000);
@@ -203,23 +263,27 @@
   
   <script>
     const imageSources = [
-      'image/a1.jpg', // <-- Nhớ sửa đuôi .png nếu file của bạn là .jpg
-      'image/a2.jpg',
-      'image/a3.jpg',
-      'image/a4.jpg',
-      'image/a5.jpg'
+      'image/a1.jpg', 'image/a2.jpg', 'image/a3.jpg',
+      'image/a4.jpg', 'image/a5.jpg'
     ];
-
     function createFloatingImage() {
       const img = document.createElement("img");
       img.className = "floating-image";
       img.src = imageSources[Math.floor(Math.random() * imageSources.length)];
       img.style.left = Math.random() * 90 + "vw";
       img.style.bottom = "-100px";
-      const animDuration = Math.random() * 8 + 10;
-      img.style.animationDuration = animDuration + "s";
+      
+      // === SỬA JS (6) - Thêm quỹ đạo ngẫu nhiên ===
+      const duration = Math.random() * 8 + 10;
+      const sway1 = Math.random() * 80 - 40; // -40px đến +40px
+      const sway2 = Math.random() * 80 - 40; // -40px đến +40px
+      
+      img.style.animationDuration = duration + "s";
+      img.style.setProperty('--x-sway-1', sway1 + 'px');
+      img.style.setProperty('--x-sway-2', sway2 + 'px');
+      
       document.body.appendChild(img);
-      setTimeout(() => img.remove(), animDuration * 1000);
+      setTimeout(() => img.remove(), duration * 1000);
     }
     setInterval(createFloatingImage, 1500);
   </script>
@@ -229,17 +293,12 @@
     window.addEventListener('load', function() {
       var audio = document.getElementById('myAudio');
       var toggleBtn = document.getElementById('toggleMusicBtn');
-
       var playPromise = audio.play();
-
       if (playPromise !== undefined) {
         playPromise.then(_ => {
           toggleBtn.textContent = '🔊';
-        }).catch(error => {
-          // Autoplay bị chặn
-        });
+        }).catch(error => {});
       }
-      
       toggleBtn.onclick = function() {
         if (audio.paused) {
           audio.play();
