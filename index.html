@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Gửi anh cả bầu trời đêm 💌</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black; 
+      overflow: hidden;
+      font-family: 'Mali', cursive, sans-serif;
+    }
+
+    /* Nút Bật/Tắt nhạc */
+    #toggleMusicBtn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 40px;
+      text-align: center;
+      padding: 0;
+      display: block; 
+    }
+    
+    #toggleMusicBtn:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Nền sao */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* Bong bóng chữ bay lên */
+    .bubble {
+      position: absolute;
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffccff;
+      animation: float 10s linear infinite;
+      opacity: 0.95;
+      white-space: nowrap;
+      text-shadow: 0 0 8px #ff99ff;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+    }
+
+    /* Trái tim bay */
+    .heart {
+      position: absolute;
+      color: #ff66cc;
+      font-size: 16px;
+      animation: floatHeart 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatHeart {
+      0% { bottom: -10px; opacity: 0; transform: translateX(0) scale(1); }
+      50% { opacity: 1; transform: translateX(-30px) scale(1.3); }
+      100% { bottom: 100%; opacity: 0; transform: translateX(30px) scale(0.8); }
+    }
+
+    /* Chữ rơi từ trên xuống */
+    .falling {
+      position: absolute;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffd6ff;
+      animation: fallZoom 4s ease-in-out forwards;
+      white-space: nowrap;
+      text-shadow: 0 0 10px #ff66cc;
+      opacity: 0.9;
+    }
+
+    @keyframes fallZoom {
+      0% { top: -50px; opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(2); }
+      100% { top: 100vh; opacity: 0; transform: scale(0.8); }
+    }
+    
+    /* CSS CHO ẢNH BAY LÊN */
+    .floating-image {
+      position: absolute;
+      width: 60px;
+      height: auto;
+      animation: floatImage 12s linear infinite;
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    @keyframes floatImage {
+      0% { transform: translateY(0) rotate(-10deg) scale(0.8); opacity: 0; bottom: -100px; }
+      25% { opacity: 0.7; }
+      50% { transform: translateY(-50vh) rotate(10deg) scale(1.2); opacity: 1; }
+      75% { opacity: 0.7; }
+      100% { transform: translateY(-120vh) rotate(-10deg) scale(0.8); opacity: 0; bottom: 120vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="myAudio" loop>
+    <source src="image/Beneath the Rain.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát audio.
+  </audio>
+  
+  <button id="toggleMusicBtn">🔇</button>
+
+  <script>
+    const numStars = 150;
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(star);
+    }
+  </script>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+      heart.textContent = "💖";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 500);
+  </script>
+
+  <script>
+    const messages = [
+      "🌸 Em yêu anh!", "💌 Anh là người đặc biệt nhất!", "💖 Cảm ơn anh vì tất cả",
+      "🌠 Mỗi ngày bên anh là kỳ diệu", "💕 Tình yêu em dành cho anh là mãi mãi",
+      "🕊️ Chỉ cần anh cười, cả thế giới rạng rỡ", "🌈 Anh là bầu trời anh mơ ước",
+      "💫 Ánh mắt anh khiến em tan chảy", "🧡 Anh là cả vũ trụ của em",
+      "✨ Bên Anh là điều tuyệt vời nhất"
+    ];
+    function createBubble() {
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = messages[Math.floor(Math.random() * messages.length)];
+      bubble.style.left = Math.random() * 90 + "vw";
+      bubble.style.bottom = "0px";
+      bubble.style.fontSize = (Math.random() * 16 + 18) + "px";
+      document.body.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 10000);
+    }
+    setInterval(createBubble, 700);
+  </script>
+
+  <script>
+    const fallMessages = [
+      "🌟 Anh là định mệnh của em!", "💘 Em chỉ muốn bên anh mãi mãi!",
+      "🌌 Không ai thay thế được anh!", "🌷 Anh là giấc mơ em không muốn tỉnh dậy!",
+      "🔥 Trái tim em gọi tên anh!"
+    ];
+    function createFallingMessage() {
+      const fall = document.createElement("div");
+      fall.className = "falling";
+      fall.textContent = fallMessages[Math.floor(Math.random() * fallMessages.length)];
+      fall.style.left = Math.random() * 80 + "vw";
+      document.body.appendChild(fall);
+      setTimeout(() => fall.remove(), 4000);
+    }
+    setInterval(() => {
+      if (Math.random() < 0.7) createFallingMessage();
+    }, 5000);
+  </script>
+  
+  <script>
+    const imageSources = [
+      'image/a1.jpg', // <-- Nhớ sửa đuôi .png nếu file của bạn là .jpg
+      'image/a2.jpg',
+      'image/a3.jpg',
+      'image/a4.jpg',
+      'image/a5.jpg'
+    ];
+
+    function createFloatingImage() {
+      const img = document.createElement("img");
+      img.className = "floating-image";
+      img.src = imageSources[Math.floor(Math.random() * imageSources.length)];
+      img.style.left = Math.random() * 90 + "vw";
+      img.style.bottom = "-100px";
+      const animDuration = Math.random() * 8 + 10;
+      img.style.animationDuration = animDuration + "s";
+      document.body.appendChild(img);
+      setTimeout(() => img.remove(), animDuration * 1000);
+    }
+    setInterval(createFloatingImage, 1500);
+  </script>
+  
+  
+  <script>
+    window.addEventListener('load', function() {
+      var audio = document.getElementById('myAudio');
+      var toggleBtn = document.getElementById('toggleMusicBtn');
+
+      var playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(_ => {
+          toggleBtn.textContent = '🔊';
+        }).catch(error => {
+          // Autoplay bị chặn
+        });
+      }
+      
+      toggleBtn.onclick = function() {
+        if (audio.paused) {
+          audio.play();
+          toggleBtn.textContent = '🔊';
+        } else {
+          audio.pause();
+          toggleBtn.textContent = '🔇';
+        }
+      };
+    });
+  </script>
+
+</body>
+</html>
